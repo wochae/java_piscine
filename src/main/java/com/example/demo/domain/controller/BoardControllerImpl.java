@@ -4,13 +4,12 @@ package com.example.demo.domain.controller;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.BoardService;
 import com.example.demo.domain.dto.BoardAddReqDto;
+import com.example.demo.domain.dto.BoardFindResDto;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -35,4 +34,11 @@ public class BoardControllerImpl implements BoardController{
 
         return dtos;
     }
+
+    @Override
+    public BoardFindResDto findOneBoard(Integer id) {
+        return boardService.findBoard(id);
+    }
+
+
 }

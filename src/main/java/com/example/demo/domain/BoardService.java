@@ -1,15 +1,12 @@
 package com.example.demo.domain;
 
 import com.example.demo.domain.dto.BoardAddReqDto;
-import com.example.demo.domain.dto.BoardDtos;
 import com.example.demo.domain.dto.BoardFindResDto;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,9 +23,9 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardFindResDto findBoard() {
+    public BoardFindResDto findBoard(Integer id) {
         BoardFindResDto boardFindResDto = BoardFindResDto.builder()
-                .title(findBoard().getTitle()).content(findBoard().getContent()).build();
+                .title(findBoard(id).getTitle()).content(findBoard(id).getContent()).build();
         return boardFindResDto;
     }
 
