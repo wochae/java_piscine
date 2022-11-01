@@ -5,11 +5,11 @@ import com.example.demo.domain.Board;
 import com.example.demo.domain.BoardService;
 import com.example.demo.domain.dto.BoardAddReqDto;
 import com.example.demo.domain.dto.BoardFindResDto;
+import com.example.demo.domain.dto.BoardModifyReqDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -17,7 +17,6 @@ import java.util.Optional;
 public class BoardControllerImpl implements BoardController{
 
     private final BoardService boardService;
-
 
 
     @Override
@@ -36,8 +35,18 @@ public class BoardControllerImpl implements BoardController{
     }
 
     @Override
+    @GetMapping(value = "/post/")
     public BoardFindResDto findOneBoard(Integer id) {
-        return boardService.findBoard(id);
+
+        return boardService.findById(id);
+    }
+
+
+    @Override
+    @PutMapping(value = "/post")
+    public void modifyBoard(BoardModifyReqDto modifyDto) {
+
+        boardService.modifyBoard(modifyDto);
     }
 
 
