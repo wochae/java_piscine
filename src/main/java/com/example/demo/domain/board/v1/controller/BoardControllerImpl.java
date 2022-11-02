@@ -3,14 +3,18 @@ package com.example.demo.domain.board.v1.controller;
 
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardService;
+import com.example.demo.domain.board.v1.dto.BoardFindResDto;
+import com.example.demo.domain.board.v1.dto.BoardListDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/board/v1")
+@RequestMapping(value = "/board")
 public class BoardControllerImpl implements BoardController {
 
     private final BoardService boardService;
@@ -25,18 +29,31 @@ public class BoardControllerImpl implements BoardController {
 
     @Override
     @GetMapping(value = "/post")
-    public List<Board> findAllBoardDesc() {
+    public List<BoardFindResDto> findAllBoardDesc() {
+        List<Board> boards = boardService.findBoards();
 
-        List<Board> dtos = boardService.findBoards();
 
-        return dtos;
+        List<BoardFindResDto> boardList = new ArrayList<>();
+        for (Board board : boards) {
+            boardList.add(BoardFindResDto.builder()
+                .id(board.getId())
+                .title(board.getTitle())
+                .content(board.getContent()).build()
+            );
+        }
+
+        return boardList;
     }
 
     @Override
     @GetMapping(value = "/post/")
-    public Board findOneBoard(Integer id) {
-
-        return boardService.findById(id);
+    public BoardFindResDto findOneBoard(Integer id) {
+        Board b = boardService.findById(id);
+        BoardFindResDto boardFindResDto = BoardFindResDto.builder()
+                .id(b.getId())
+                .title(b.getTitle())
+                .content(b.getContent()).build();
+        return boardFindResDto;
     }
 
 
