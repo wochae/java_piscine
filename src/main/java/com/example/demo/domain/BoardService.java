@@ -18,18 +18,20 @@ public class BoardService {
 
 
     @Transactional
-    public void addBoard(BoardAddReqDto addDto) {
-        Board board = Board.builder()
-                        .title(addDto.getTitle()).content(addDto.getContent()).build();
-        boardRepository.save(board);
+    public void addBoard(Board board) {
+        Board b = Board.builder()
+                        .title(board.getTitle())
+                        .content(board.getContent())
+                        .build();
+        boardRepository.save(b);
     }
 
     @Transactional
-    public BoardFindResDto findById(Integer id) {
+    public Board findById(Integer id) {
         Board board = boardRepository.findById(id)
                 .orElse(null);
 
-        return new BoardFindResDto(board);
+        return board;
     }
 
     @Transactional
@@ -39,10 +41,16 @@ public class BoardService {
 
 
     @Transactional
-    public void modifyBoard(BoardModifyReqDto modifyDto) {
+    public void modifyBoard(String title, String content, Integer id) {
+        Optional<Board> board = boardRepository.findById(id);
+        Board newBoard = board.get();
+        newBoard.setTitle(title);
+        newBoard.setContent(content);
 
-        Board board = boardRepository.getById(modifyDto.getId());
-        board.setTitle(modifyDto.getTitle());
-        board.setContent(modifyDto.getContent());
+    }
+
+    public void destroyBoard(Integer id) {
+        Board board = findById(id);
+        boardRepository.delete(board);
     }
 }

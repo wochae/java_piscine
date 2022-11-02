@@ -4,12 +4,12 @@ package com.example.demo.domain.controller;
 import com.example.demo.domain.Board;
 import com.example.demo.domain.BoardService;
 import com.example.demo.domain.dto.BoardAddReqDto;
-import com.example.demo.domain.dto.BoardFindResDto;
 import com.example.demo.domain.dto.BoardModifyReqDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
@@ -21,9 +21,10 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @PostMapping(value = "/post")
-    public void saveBoard(BoardAddReqDto addDto) {
-        boardService.addBoard(addDto);
+    public void saveBoard(Board board) {
+        boardService.addBoard(board);
     }
+
 
     @Override
     @GetMapping(value = "/post")
@@ -36,7 +37,7 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @GetMapping(value = "/post/")
-    public BoardFindResDto findOneBoard(Integer id) {
+    public Board findOneBoard(Integer id) {
 
         return boardService.findById(id);
     }
@@ -44,9 +45,15 @@ public class BoardControllerImpl implements BoardController{
 
     @Override
     @PutMapping(value = "/post")
-    public void modifyBoard(BoardModifyReqDto modifyDto) {
+    public void modifyBoard(String title, String content, Integer id) {
+        boardService.modifyBoard(title, content, id);
 
-        boardService.modifyBoard(modifyDto);
+    }
+
+    @Override
+    @DeleteMapping(value = "/post")
+    public void destroyBoard(Integer id) {
+        boardService.destroyBoard(id);
     }
 
 
