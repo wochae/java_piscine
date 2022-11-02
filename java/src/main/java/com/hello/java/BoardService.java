@@ -33,4 +33,10 @@ public class BoardService {
     public List<Board> findBoards() {
         return boardRepository.findAll();
     }
+
+    @Transactional
+    public void delete(Long id) {
+        Board board = boardRepository.findById(id).orElseThrow();
+        boardRepository.delete(board);
+    }
 }
