@@ -48,11 +48,13 @@ public class BoardControllerImpl implements BoardController {
     @Override
     @GetMapping(value = "/post/")
     public BoardFindResDto findOneBoard(Integer id) {
+        boardService.viewBoard(id);
         Board b = boardService.findById(id);
         BoardFindResDto boardFindResDto = BoardFindResDto.builder()
                 .id(b.getId())
                 .title(b.getTitle())
-                .content(b.getContent()).build();
+                .content(b.getContent())
+                .view(b.getView()).build();
         return boardFindResDto;
     }
 

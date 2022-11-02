@@ -21,6 +21,10 @@ public class Board extends BaseTimeEntity {
     @Column(name = "content")
     private String content;
 
+    @Setter
+    @Column
+    private int view;
+
     @Builder
     public Board(Integer id, String title, String content) {
         this.id = id;

@@ -11,7 +11,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BoardService {
 
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
 
     @Transactional
@@ -45,9 +45,14 @@ public class BoardService {
         newBoard.setContent(content);
 
     }
-
+    @Transactional
     public void destroyBoard(Integer id) {
         Board board = findById(id);
         boardRepository.delete(board);
+    }
+    @Transactional
+    public void viewBoard(Integer id) {
+        Board findBoard = findById(id);
+        findBoard.setView(findBoard.getView() + 1);
     }
 }

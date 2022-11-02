@@ -18,4 +18,5 @@ public interface BoardController {
 
     public void destroyBoard(@RequestParam Integer id);
 
+
 }
