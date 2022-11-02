@@ -26,4 +26,16 @@ public class Board {
         this.title = title;
         this.content = content;
     }
+
+    @Builder
+    public Board(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+    }
+
+    public void update(Long id, String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }
