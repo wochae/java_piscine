@@ -1,20 +1,17 @@
-package com.example.demo.domain.controller;
+package com.example.demo.domain.board.v1.controller;
 
 
-import com.example.demo.domain.Board;
-import com.example.demo.domain.BoardService;
-import com.example.demo.domain.dto.BoardAddReqDto;
-import com.example.demo.domain.dto.BoardModifyReqDto;
+import com.example.demo.domain.board.Board;
+import com.example.demo.domain.board.BoardService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping(value = "/board")
-public class BoardControllerImpl implements BoardController{
+@RequestMapping(value = "/board/v1")
+public class BoardControllerImpl implements BoardController {
 
     private final BoardService boardService;
 

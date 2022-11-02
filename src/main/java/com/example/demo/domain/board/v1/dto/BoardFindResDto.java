@@ -1,8 +1,7 @@
-package com.example.demo.domain.dto;
+package com.example.demo.domain.board.v1.dto;
 
 
-import com.example.demo.domain.Board;
-import lombok.Builder;
+import com.example.demo.domain.board.Board;
 import lombok.Getter;
 
 @Getter

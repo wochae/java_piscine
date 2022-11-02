@@ -1,8 +1,5 @@
-package com.example.demo.domain;
+package com.example.demo.domain.board;
 
-import com.example.demo.domain.dto.BoardAddReqDto;
-import com.example.demo.domain.dto.BoardFindResDto;
-import com.example.demo.domain.dto.BoardModifyReqDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

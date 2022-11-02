@@ -1,7 +1,6 @@
-package com.example.demo.domain.dto;
+package com.example.demo.domain.board.v1.dto;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class BoardModifyReqDto {

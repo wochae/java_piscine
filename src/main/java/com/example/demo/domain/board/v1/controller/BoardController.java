@@ -1,14 +1,10 @@
-package com.example.demo.domain.controller;
+package com.example.demo.domain.board.v1.controller;
 
-import com.example.demo.domain.Board;
-import com.example.demo.domain.dto.BoardAddReqDto;
-import com.example.demo.domain.dto.BoardFindResDto;
-import com.example.demo.domain.dto.BoardModifyReqDto;
+import com.example.demo.domain.board.Board;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface BoardController {
     public void saveBoard(@RequestBody Board board);
