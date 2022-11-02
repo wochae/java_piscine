@@ -12,6 +12,8 @@ public interface BoardController {
     public void saveBoard(@RequestBody Board board);
     List<BoardFindResDto> findAllBoardDesc();
 
+    public int CountBoardList();
+
     BoardFindResDto findOneBoard(@RequestParam Integer id);
 
     public void modifyBoard(@RequestParam String title, @RequestParam String content, @RequestParam Integer id);

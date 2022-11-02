@@ -36,6 +36,10 @@ public class BoardService {
         return boardRepository.findAllDesc();
     }
 
+    public int countBoards() {
+        return boardRepository.findAllDesc().size();
+    }
+
 
     @Transactional
     public void modifyBoard(String title, String content, Integer id) {
