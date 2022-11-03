@@ -43,4 +43,30 @@ class BoardServiceTest {
         assertThat(findBoard.getContent()).isEqualTo(content);
         assertThat(findBoard.getLikes()).isEqualTo(likes);
     }
+
+    @Test
+    public void 좋아요가_변경된다() {
+
+        String title = "42gg";
+        String content = "salee";
+        Long likes = 100L;
+
+        boardRepository.save(BoardSaveRequestDto.builder()
+                .title(title)
+                .content(content)
+                .likes(likes)
+                .build()
+                .toEntity());
+
+        // when
+        List<Board> findBoards = boardRepository.findAll();
+
+        //then
+        Long deltaLikes1 = 10L;
+        Board findBoard = findBoards.get(0);
+        findBoard.updateLike(deltaLikes1);
+        assertThat(findBoard.getLikes()).isEqualTo(likes + deltaLikes1);
+        findBoard.updateLike(-deltaLikes1);
+        assertThat(findBoard.getLikes()).isEqualTo(likes);
+    }
 }
