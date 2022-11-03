@@ -3,6 +3,7 @@ package com.hello.java.domain.board.controller;
 
 import com.hello.java.domain.board.Board;
 import com.hello.java.domain.board.BoardService;
+import com.hello.java.domain.board.dto.BoardSaveRequestDto;
 import com.hello.java.domain.board.dto.BoardUpdateDto;
 import com.hello.java.domain.board.dto.BoardListResponseDto;
 import lombok.AllArgsConstructor;
@@ -14,10 +15,8 @@ public class BoardController {
     private final BoardService boardService;
 
     @PostMapping("/board")
-    public Board saveBaord(@RequestParam("title") String title,
-                           @RequestParam("content") String content) {
-        Board board = new Board(title, content);
-        return boardService.save(board);
+    public Board saveBaord(@RequestBody BoardSaveRequestDto requestDto) {
+        return boardService.save(requestDto);
     }
 
     @GetMapping("/board/{boardId}")

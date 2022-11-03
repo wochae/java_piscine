@@ -4,10 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Entity
@@ -19,13 +16,14 @@ public class Board extends BaseTimeEntity{
     private Long id;
     private String title;
     private String content;
-//    private Long like;
+
+    private Long likes;
 
     @Builder
-    public Board(String title, String content) {
+    public Board(String title, String content, Long likes) {
         this.title = title;
         this.content = content;
-//        this.like = like;
+        this.likes = likes;
     }
 
     public void update(String title, String content) {
@@ -33,8 +31,8 @@ public class Board extends BaseTimeEntity{
         this.content = content;
     }
 
-//    public void updateLike(Long likeOffset) {
-//        this.like += likeOffset;
-//    }
+    public void updateLike(Long likesOffset) {
+        this.likes += likesOffset;
+    }
 
 }

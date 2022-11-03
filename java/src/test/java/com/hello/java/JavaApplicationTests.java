@@ -1,13 +1,11 @@
 package com.hello.java;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+@Transactional
 @SpringBootTest
 class JavaApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
 
 }

@@ -1,6 +1,7 @@
 package com.hello.java.domain.board;
 
 import com.hello.java.domain.board.dto.BoardListResponseDto;
+import com.hello.java.domain.board.dto.BoardSaveRequestDto;
 import com.hello.java.domain.board.dto.BoardUpdateDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public Board save(Board board) {
-        return boardRepository.save(board);
+    public Board save(BoardSaveRequestDto requestDto) {
+        return boardRepository.save(requestDto.toEntity());
     }
 
     @Transactional
