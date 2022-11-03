@@ -39,6 +39,8 @@ public class BoardController {
         boardService.delete(boardId);
     }
 
-
-
+    @PutMapping("/board/like/{boardId}")
+    public void updateLikes(@PathVariable("boardId") Long boardId, @RequestParam Long likes) {
+        boardService.updateLike(boardId, likes);
+    }
 }

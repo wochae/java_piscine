@@ -64,9 +64,10 @@ class BoardServiceTest {
         //then
         Long deltaLikes1 = 10L;
         Board findBoard = findBoards.get(0);
-        findBoard.updateLike(deltaLikes1);
+
+        boardService.updateLike(findBoard.getId(), deltaLikes1);
         assertThat(findBoard.getLikes()).isEqualTo(likes + deltaLikes1);
-        findBoard.updateLike(-deltaLikes1);
+        boardService.updateLike(findBoard.getId(), -deltaLikes1);
         assertThat(findBoard.getLikes()).isEqualTo(likes);
     }
 }
