@@ -1,4 +1,4 @@
-package com.hello.java;
+package com.hello.java.domain.board;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

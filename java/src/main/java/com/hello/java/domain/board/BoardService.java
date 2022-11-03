@@ -1,5 +1,7 @@
-package com.hello.java;
+package com.hello.java.domain.board;
 
+import com.hello.java.domain.board.dto.BoardListResponseDto;
+import com.hello.java.domain.board.dto.BoardUpdateDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +20,7 @@ public class BoardService {
     }
 
     @Transactional
-    public Long update(Long id, BoardUpdateDto boardUpdateDto) {
+    public Long updateBoard(Long id, BoardUpdateDto boardUpdateDto) {
         Board board = findOne(id).orElseThrow();
         board.update(boardUpdateDto.getTitle(), boardUpdateDto.getContent());
         return id;
@@ -28,13 +30,24 @@ public class BoardService {
         return boardRepository.findById(boardId);
     }
 
-    public List<Board> findBoards() {
-        return boardRepository.findAll();
+    public BoardListResponseDto findBoards() {
+
+        List<Board> boards = boardRepository.findAll();
+        BoardListResponseDto boardBoardListResponseDto = BoardListResponseDto.builder()
+                .boards(boards)
+                .total(boards.size())
+                .build();
+        return boardBoardListResponseDto;
     }
 
     @Transactional
     public void delete(Long id) {
         Board board = boardRepository.findById(id).orElseThrow();
         boardRepository.delete(board);
+    }
+
+    public void updateLike(Long id, Long likeOffset) {
+        Board findBoard = findOne(id).orElseThrow();
+        findBoard.updateLike(likeOffset);
     }
 }

@@ -1,5 +1,6 @@
-package com.hello.java;
+package com.hello.java.domain.board.dto;
 
+import com.hello.java.domain.board.Board;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

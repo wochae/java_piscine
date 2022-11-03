@@ -1,4 +1,4 @@
-package com.hello.java;
+package com.hello.java.domain.board;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -8,34 +8,33 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @NoArgsConstructor
-public class Board {
+public class Board extends BaseTimeEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String content;
-    private LocalDateTime createDate;
+//    private Long like;
 
+    @Builder
     public Board(String title, String content) {
         this.title = title;
         this.content = content;
-    }
-
-    @Builder
-    public Board(Long id, String title, String content) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
+//        this.like = like;
     }
 
     public void update(String title, String content) {
         this.title = title;
         this.content = content;
     }
+
+//    public void updateLike(Long likeOffset) {
+//        this.like += likeOffset;
+//    }
+
 }
