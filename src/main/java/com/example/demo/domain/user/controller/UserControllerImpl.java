@@ -2,15 +2,10 @@ package com.example.demo.domain.user.controller;
 
 import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserProvider;
-import com.example.demo.domain.user.UserRepository;
 import com.example.demo.domain.user.UserService;
-import com.example.demo.domain.user.dto.FindUserListRes;
-import com.example.demo.domain.user.dto.FindUserRes;
-import com.example.demo.domain.user.dto.PostUserReq;
-import com.example.demo.domain.user.dto.PostUserRes;
+import com.example.demo.domain.user.dto.*;
 import com.example.demo.global.BusinessException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,12 +46,11 @@ public class UserControllerImpl implements UserController{
 
     @Override
     @GetMapping(value = "/find")
-    public FindUserRes findUser(String name) {
-//        List<FindUserRes> res = userService.findUser(name);
-        User user = userService.findUser(name);
-        FindUserRes res = FindUserRes.builder().userName(user.getUserName()).email(user.getEmail()).build();
+    public List<FindUserRes> findUser(String name) {
+        List<FindUserRes> res = userService.findUser(name);
         return res;
     }
+
 
     @Override
     @GetMapping(value = "/all")
@@ -65,9 +59,25 @@ public class UserControllerImpl implements UserController{
         List<FindUserRes> resList = new ArrayList<>();
         for (User u : list) {
             resList.add(FindUserRes.builder().userName(u.getUserName())
-                                            .email(u.getEmail()).build());
+                                            .email(u.getEmail()).password(u.getPassword()).build());
         }
         FindUserListRes res = FindUserListRes.builder().userResList(resList).count(resList.size()).build();
+        return res;
+    }
+    @Override
+    @GetMapping(value = "/edit")
+    public UpdateUserRes UpdateUser(UpdateUserReq req) {
+        if (userProvider.checkEmail(req.getEmail()) == 0) {
+            throw new IllegalArgumentException("이메일이 이상한데?");
+        }
+        User user = userService.findUserByName(req.getName());
+        if (user.getPassword() != req.getPassword()) {
+            throw new IllegalArgumentException("비밀번호가 틀립니다.");
+        }
+        UpdateUserRes res = UpdateUserRes.builder().name(user.getUserName()).email(user.getEmail()).build();
+        res.setEmail(req.getEmail());
+
+
         return res;
     }
 }
