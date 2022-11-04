@@ -66,4 +66,29 @@ class BoardServiceTest {
         boardService.updateLikes(findBoard.getId(), Boolean.FALSE);
         assertThat(findBoard.getLikes()).isEqualTo(0);
     }
+
+    @Test
+    public void 조회수가_올라간다() {
+
+        String title = "42gg";
+        String content = "salee";
+
+        boardRepository.save(BoardSaveRequestDto.builder()
+                .title(title)
+                .content(content)
+                .build()
+                .toEntity());
+
+        // when
+        List<Board> findBoards = boardRepository.findAll();
+
+        //then
+        Board findBoard = findBoards.get(0);
+
+        assertThat(findBoard.getViews()).isEqualTo(0);
+        for (int i = 0; i < 42; ++i) {
+            findBoard.updateViews();
+        }
+        assertThat(findBoard.getViews()).isEqualTo(42);
+    }
 }
