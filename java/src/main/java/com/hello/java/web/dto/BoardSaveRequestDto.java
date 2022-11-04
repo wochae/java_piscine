@@ -1,4 +1,4 @@
-package com.hello.java.web.controller.dto;
+package com.hello.java.web.dto;
 
 
 import com.hello.java.domain.board.Board;

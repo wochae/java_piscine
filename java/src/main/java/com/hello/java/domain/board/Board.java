@@ -1,7 +1,7 @@
 package com.hello.java.domain.board;
 
 import com.hello.java.domain.BaseTimeEntity;
-import com.hello.java.web.controller.dto.BoardUpdateRequestDto;
+import com.hello.java.web.dto.BoardUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

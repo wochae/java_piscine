@@ -2,9 +2,9 @@ package com.hello.java.service;
 
 import com.hello.java.domain.board.Board;
 import com.hello.java.domain.board.BoardRepository;
-import com.hello.java.web.controller.dto.BoardListResponseDto;
-import com.hello.java.web.controller.dto.BoardSaveRequestDto;
-import com.hello.java.web.controller.dto.BoardUpdateRequestDto;
+import com.hello.java.web.dto.BoardListResponseDto;
+import com.hello.java.web.dto.BoardSaveRequestDto;
+import com.hello.java.web.dto.BoardUpdateRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

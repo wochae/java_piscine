@@ -1,8 +1,9 @@
-package com.hello.java.domain.board;
+package com.hello.java.service;
 
-import com.hello.java.service.BoardService;
-import com.hello.java.web.controller.dto.BoardSaveRequestDto;
-import com.hello.java.web.controller.dto.BoardUpdateRequestDto;
+import com.hello.java.domain.board.Board;
+import com.hello.java.domain.board.BoardRepository;
+import com.hello.java.web.dto.BoardSaveRequestDto;
+import com.hello.java.web.dto.BoardUpdateRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
