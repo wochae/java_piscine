@@ -51,9 +51,9 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateLikes(Long id, Long likeOffset) {
+    public void updateLikes(Long id, Boolean isLike) {
         Board findBoard = findOne(id).orElseThrow();
-        findBoard.updateLike(likeOffset);
+        findBoard.updateLike(isLike);
     }
 
     @Transactional

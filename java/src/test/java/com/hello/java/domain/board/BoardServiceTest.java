@@ -25,12 +25,10 @@ class BoardServiceTest {
         // given
         String title = "42gg";
         String content = "salee";
-        Long likes = 100L;
 
         boardRepository.save(BoardSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .likes(likes)
                 .build()
                 .toEntity());
 
@@ -41,7 +39,7 @@ class BoardServiceTest {
         Board findBoard = findBoards.get(0);
         assertThat(findBoard.getTitle()).isEqualTo(title);
         assertThat(findBoard.getContent()).isEqualTo(content);
-        assertThat(findBoard.getLikes()).isEqualTo(likes);
+        assertThat(findBoard.getLikes()).isEqualTo(0);
     }
 
     @Test
@@ -49,12 +47,10 @@ class BoardServiceTest {
 
         String title = "42gg";
         String content = "salee";
-        Long likes = 100L;
 
         boardRepository.save(BoardSaveRequestDto.builder()
                 .title(title)
                 .content(content)
-                .likes(likes)
                 .build()
                 .toEntity());
 
@@ -65,9 +61,9 @@ class BoardServiceTest {
         Long deltaLikes1 = 10L;
         Board findBoard = findBoards.get(0);
 
-        boardService.updateLikes(findBoard.getId(), deltaLikes1);
-        assertThat(findBoard.getLikes()).isEqualTo(likes + deltaLikes1);
-        boardService.updateLikes(findBoard.getId(), -deltaLikes1);
-        assertThat(findBoard.getLikes()).isEqualTo(likes);
+        boardService.updateLikes(findBoard.getId(), Boolean.TRUE);
+        assertThat(findBoard.getLikes()).isEqualTo(1);
+        boardService.updateLikes(findBoard.getId(), Boolean.FALSE);
+        assertThat(findBoard.getLikes()).isEqualTo(0);
     }
 }

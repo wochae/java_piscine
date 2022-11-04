@@ -41,7 +41,7 @@ public class BoardController {
     }
 
     @PutMapping("/board/like/{boardId}")
-    public void updateLikes(@PathVariable("boardId") Long boardId, @RequestParam Long likes) {
-        boardService.updateLikes(boardId, likes);
+    public void updateLikes(@PathVariable("boardId") Long boardId, @RequestParam Boolean isLike) {
+        boardService.updateLikes(boardId, isLike);
     }
 }

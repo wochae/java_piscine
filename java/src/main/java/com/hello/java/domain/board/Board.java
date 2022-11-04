@@ -35,8 +35,12 @@ public class Board extends BaseTimeEntity{
         this.content = content;
     }
 
-    public void updateLike(Long likesOffset) {
-        this.likes += likesOffset;
+    public void updateLike(Boolean isLike) {
+        if (isLike) {
+            ++this.likes;
+        } else {
+            --this.likes;
+        }
     }
 
     public void updateViews() {
