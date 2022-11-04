@@ -1,5 +1,6 @@
 package com.example.demo.domain.board;
 
+import com.example.demo.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

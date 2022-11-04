@@ -3,7 +3,6 @@ package com.example.demo.domain.board.v1.controller;
 
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardService;
-import com.example.demo.domain.board.v1.dto.BoardFindResDto;
 import com.example.demo.domain.board.v1.dto.BoardListDto;
 import com.example.demo.domain.board.v1.dto.addTagReqDto;
 import lombok.AllArgsConstructor;
@@ -71,14 +70,14 @@ public class BoardControllerImpl implements BoardController {
 
     @Override
     @PutMapping(value = "/post/rike/u")
-    public void increaseBoardLike(Integer boardId) {
-        boardService.increaseLike(boardId);
+    public void increaseBoardLike(Integer id) {
+        boardService.increaseLike(id);
     }
 
     @Override
     @PutMapping(value = "/post/rike/d")
-    public void decreaseBoardLike(Integer boardId) {
-        boardService.decreaseLike(boardId);
+    public void decreaseBoardLike(Integer id) {
+        boardService.decreaseLike(id);
     }
 
     @Override
