@@ -43,8 +43,20 @@ public class UserService {
         return userRepository.findByUserName(name).orElse(null);
     }
 
+    public User findUserByEmail(String email) {
+        return userRepository.findFirstByEmail(email).orElse(null);
+    }
+
     public List<User> findUsers() {
         return userRepository.findAll();
     }
 
+    public UpdateUserRes updateUser(UpdateUserReq req) {
+        userRepository.getById(req.getId()).setUserName(req.getName());
+        User user = userRepository.getById(req.getId());
+        UpdateUserRes res = UpdateUserRes.builder().email(user.getEmail()).name(user.getUserName()).build();
+
+        return res;
+
+    }
 }

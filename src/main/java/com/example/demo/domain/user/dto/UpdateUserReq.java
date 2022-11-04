@@ -8,4 +8,10 @@ public class UpdateUserReq {
     private String name;
     private String email;
     private String password;
+
+    public UpdateUserReq(Integer id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
 }

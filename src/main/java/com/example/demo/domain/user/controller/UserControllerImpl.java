@@ -6,10 +6,7 @@ import com.example.demo.domain.user.UserService;
 import com.example.demo.domain.user.dto.*;
 import com.example.demo.global.BusinessException;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,15 +62,20 @@ public class UserControllerImpl implements UserController{
         return res;
     }
     @Override
-    @GetMapping(value = "/edit")
+    @PutMapping(value = "/edit")
     public UpdateUserRes UpdateUser(UpdateUserReq req) {
-        if (userProvider.checkEmail(req.getEmail()) == 0) {
+        if (userProvider.checkEmail(req.getEmail()) == 1) {
             throw new IllegalArgumentException("이메일이 이상한데?");
         }
-        User user = userService.findUserByName(req.getName());
-        if (user.getPassword() != req.getPassword()) {
+
+        User user = userService.findUserByEmail(req.getEmail());
+        UpdateUserReq request = new UpdateUserReq(user.getId(),user.getUserName(),user.getEmail());
+        String userPw = user.getPassword();
+        String reqPw = req.getPassword();
+        if (!userPw.equals(reqPw)) {
             throw new IllegalArgumentException("비밀번호가 틀립니다.");
         }
+        userService.updateUser(request);
         UpdateUserRes res = UpdateUserRes.builder().name(user.getUserName()).email(user.getEmail()).build();
         res.setEmail(req.getEmail());
 
