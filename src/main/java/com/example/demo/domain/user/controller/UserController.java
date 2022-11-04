@@ -23,7 +23,7 @@ public interface UserController {
 
     public PostUserRes createUser(@RequestBody PostUserReq req);
 
-    public List<FindUserRes> findUser(@RequestParam String userName);
+    public FindUserRes findUser(@RequestParam String userName);
 
     public FindUserListRes findUserList();
 }

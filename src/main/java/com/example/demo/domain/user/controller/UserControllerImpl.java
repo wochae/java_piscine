@@ -51,9 +51,10 @@ public class UserControllerImpl implements UserController{
 
     @Override
     @GetMapping(value = "/find")
-    public List<FindUserRes> findUser(String name) {
-        List<FindUserRes> res = userService.findUser(name);
-
+    public FindUserRes findUser(String name) {
+//        List<FindUserRes> res = userService.findUser(name);
+        User user = userService.findUser(name);
+        FindUserRes res = FindUserRes.builder().userName(user.getUserName()).email(user.getEmail()).build();
         return res;
     }
 

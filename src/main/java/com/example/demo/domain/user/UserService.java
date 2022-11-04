@@ -32,19 +32,21 @@ public class UserService {
         return res;
     }
 
-    public List<FindUserRes> findUser(String userName) {
-        List<User> user = userRepository.findUserByUserName(userName);
-        List<FindUserRes> list = new ArrayList<>();
-        for (User u : user) {
-            FindUserRes res = FindUserRes.builder().userName(u.getUserName()).email(u.getEmail()).build();
-            list.add(res);
-        }
-
-        return list;
+//    public List<FindUserRes> findUser(String userName) {
+//        List<User> user = userRepository.findUserByUserName(userName);
+//        List<FindUserRes> list = new ArrayList<>();
+//        for (User u : user) {
+//            FindUserRes res = FindUserRes.builder().userName(u.getUserName()).email(u.getEmail()).build();
+//            list.add(res);
+//        }
+//
+//        return list;
+//    }
+    public User findUser(String name) {
+        return userRepository.findByUserName(name).orElse(null);
     }
 
     public List<User> findUsers() {
         return userRepository.findAll();
     }
-
 }
