@@ -21,6 +21,7 @@ public class BoardController {
 
     @GetMapping("/board/{boardId}")
     public Board findBoard(@PathVariable("boardId") Long boardId) {
+        boardService.updateViews(boardId);
         return boardService.findOne(boardId).orElseThrow();
     }
 
@@ -41,6 +42,6 @@ public class BoardController {
 
     @PutMapping("/board/like/{boardId}")
     public void updateLikes(@PathVariable("boardId") Long boardId, @RequestParam Long likes) {
-        boardService.updateLike(boardId, likes);
+        boardService.updateLikes(boardId, likes);
     }
 }

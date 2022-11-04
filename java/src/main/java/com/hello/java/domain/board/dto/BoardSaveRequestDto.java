@@ -11,11 +11,14 @@ public class BoardSaveRequestDto {
     private String content;
     private Long likes;
 
+    private Long views;
+
     @Builder
-    public BoardSaveRequestDto(String title, String content, Long likes) {
+    public BoardSaveRequestDto(String title, String content, Long likes, Long views) {
         this.title = title;
         this.content = content;
         this.likes = likes;
+        this.views = views;
     }
 
     public Board toEntity() {
@@ -23,6 +26,7 @@ public class BoardSaveRequestDto {
                 .title(title)
                 .content(content)
                 .likes(likes)
+                .views(views)
                 .build();
     }
 }

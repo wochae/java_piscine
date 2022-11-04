@@ -16,6 +16,7 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
+    @Transactional
     public Board save(BoardSaveRequestDto requestDto) {
         return boardRepository.save(requestDto.toEntity());
     }
@@ -27,10 +28,12 @@ public class BoardService {
         return id;
     }
 
+    @Transactional(readOnly = true)
     public Optional<Board> findOne(Long boardId) {
         return boardRepository.findById(boardId);
     }
 
+    @Transactional(readOnly = true)
     public BoardListResponseDto findBoards() {
 
         List<Board> boards = boardRepository.findAll();
@@ -47,8 +50,15 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    public void updateLike(Long id, Long likeOffset) {
+    @Transactional
+    public void updateLikes(Long id, Long likeOffset) {
         Board findBoard = findOne(id).orElseThrow();
         findBoard.updateLike(likeOffset);
+    }
+
+    @Transactional
+    public void updateViews(Long id) {
+        Board findBoard = findOne(id).orElseThrow();
+        findBoard.updateViews();
     }
 }

@@ -19,11 +19,15 @@ public class Board extends BaseTimeEntity{
 
     private Long likes;
 
+    private Long views;
+
+
     @Builder
-    public Board(String title, String content, Long likes) {
+    public Board(String title, String content, Long likes, Long views) {
         this.title = title;
         this.content = content;
         this.likes = likes;
+        this.views = views;
     }
 
     public void update(String title, String content) {
@@ -33,6 +37,10 @@ public class Board extends BaseTimeEntity{
 
     public void updateLike(Long likesOffset) {
         this.likes += likesOffset;
+    }
+
+    public void updateViews() {
+        ++this.views;
     }
 
 }
