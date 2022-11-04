@@ -23,13 +23,23 @@ public class Board extends BaseTimeEntity {
 
     @Setter
     @Column
-    private int view;
+    private Integer view;
+
+    @Setter
+    @Column(name = "countRike")
+    private Integer like;
+
+    @Setter
+    @Column(name = "tag")
+    private String tag;
 
     @Builder
-    public Board(Integer id, String title, String content) {
+    public Board(Integer id, String title, String content, Integer view, Integer like, String tag) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.view = view;
+        this.like = like;
+        this.tag = tag;
     }
-
 }

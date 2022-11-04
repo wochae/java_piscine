@@ -4,10 +4,10 @@ package com.example.demo.domain.board.v1.controller;
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardService;
 import com.example.demo.domain.board.v1.dto.BoardFindResDto;
+import com.example.demo.domain.board.v1.dto.BoardListDto;
+import com.example.demo.domain.board.v1.dto.addTagReqDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,41 +28,29 @@ public class BoardControllerImpl implements BoardController {
 
     @Override
     @GetMapping(value = "/post")
-    public List<BoardFindResDto> findAllBoardDesc() {
+    public BoardListDto findAllBoardDesc() {
         List<Board> boards = boardService.findBoards();
 
 
-        List<BoardFindResDto> boardList = new ArrayList<>();
+        List<Board> boardList = new ArrayList<>();
         for (Board board : boards) {
-            boardList.add(BoardFindResDto.builder()
-                .id(board.getId())
-                .title(board.getTitle())
-                .content(board.getContent()).build()
-            );
+            boardList.add(board);
         }
 
-        return boardList;
+        BoardListDto listDto = BoardListDto.builder().BoardList(boardList).countBoard(boards.size()).build();
+
+
+        return listDto;
     }
 
-    @Override
-    @GetMapping(value = "/post/count")
-    public int CountBoardList() {
-        int count = boardService.countBoards();
-
-        return count;
-    }
 
     @Override
     @GetMapping(value = "/post/")
-    public BoardFindResDto findOneBoard(Integer id) {
+    public Board findOneBoard(Integer id) {
         boardService.viewBoard(id);
         Board b = boardService.findById(id);
-        BoardFindResDto boardFindResDto = BoardFindResDto.builder()
-                .id(b.getId())
-                .title(b.getTitle())
-                .content(b.getContent())
-                .view(b.getView()).build();
-        return boardFindResDto;
+
+        return b;
     }
 
 
@@ -80,4 +68,23 @@ public class BoardControllerImpl implements BoardController {
     }
 
 
+
+    @Override
+    @PutMapping(value = "/post/rike/u")
+    public void increaseBoardLike(Integer boardId) {
+        boardService.increaseLike(boardId);
+    }
+
+    @Override
+    @PutMapping(value = "/post/rike/d")
+    public void decreaseBoardLike(Integer boardId) {
+        boardService.decreaseLike(boardId);
+    }
+
+    @Override
+    @PutMapping(value = "/post/tag")
+    public addTagReqDto addTagInBoard(addTagReqDto reqDto) {
+        addTagReqDto res = boardService.addTag(reqDto);
+        return res;
+    }
 }

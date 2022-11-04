@@ -1,5 +1,6 @@
 package com.example.demo.domain.board;
 
+import com.example.demo.domain.board.v1.dto.addTagReqDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,8 @@ public class BoardService {
         Board b = Board.builder()
                         .title(board.getTitle())
                         .content(board.getContent())
+                        .view(0)
+                        .like(0)
                         .build();
         boardRepository.save(b);
     }
@@ -58,5 +61,28 @@ public class BoardService {
     public void viewBoard(Integer id) {
         Board findBoard = findById(id);
         findBoard.setView(findBoard.getView() + 1);
+    }
+
+    @Transactional
+    public void increaseLike(Integer id) {
+        Board findBoard = findById(id);
+        findBoard.setLike(findBoard.getLike() + 1);
+    }
+    @Transactional
+    public void decreaseLike(Integer id) {
+        Board findBoard = findById(id);
+        findBoard.setLike(findBoard.getLike() - 1);
+    }
+
+    @Transactional
+    public addTagReqDto addTag(addTagReqDto reqDto) {
+        Board findBoard = findById(reqDto.getBoardId());
+        findBoard.setTag(reqDto.getTag());
+
+        addTagReqDto res = addTagReqDto.builder().
+                            boardId(findBoard.getId()).
+                            tag(findBoard.getTag()).build();
+        return res;
+
     }
 }
