@@ -1,11 +1,11 @@
-package com.hello.java.domain.board.controller;
+package com.hello.java.web.controller;
 
 
 import com.hello.java.domain.board.Board;
-import com.hello.java.domain.board.BoardService;
-import com.hello.java.domain.board.dto.BoardSaveRequestDto;
-import com.hello.java.domain.board.dto.BoardUpdateRequestDto;
-import com.hello.java.domain.board.dto.BoardListResponseDto;
+import com.hello.java.service.BoardService;
+import com.hello.java.web.controller.dto.BoardSaveRequestDto;
+import com.hello.java.web.controller.dto.BoardUpdateRequestDto;
+import com.hello.java.web.controller.dto.BoardListResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

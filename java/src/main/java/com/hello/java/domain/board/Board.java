@@ -1,6 +1,7 @@
 package com.hello.java.domain.board;
 
-import com.hello.java.domain.board.dto.BoardUpdateRequestDto;
+import com.hello.java.domain.BaseTimeEntity;
+import com.hello.java.web.controller.dto.BoardUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Board extends BaseTimeEntity{
+public class Board extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
