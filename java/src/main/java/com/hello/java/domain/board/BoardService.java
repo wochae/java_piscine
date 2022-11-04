@@ -2,7 +2,7 @@ package com.hello.java.domain.board;
 
 import com.hello.java.domain.board.dto.BoardListResponseDto;
 import com.hello.java.domain.board.dto.BoardSaveRequestDto;
-import com.hello.java.domain.board.dto.BoardUpdateDto;
+import com.hello.java.domain.board.dto.BoardUpdateRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,9 +22,9 @@ public class BoardService {
     }
 
     @Transactional
-    public Long updateBoard(Long id, BoardUpdateDto boardUpdateDto) {
+    public Long updateBoard(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
         Board board = findOne(id).orElseThrow();
-        board.update(boardUpdateDto.getTitle(), boardUpdateDto.getContent());
+        board.update(boardUpdateRequestDto);
         return id;
     }
 

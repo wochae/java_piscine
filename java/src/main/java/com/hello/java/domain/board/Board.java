@@ -1,5 +1,6 @@
 package com.hello.java.domain.board;
 
+import com.hello.java.domain.board.dto.BoardUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,23 +17,22 @@ public class Board extends BaseTimeEntity{
     private Long id;
     private String title;
     private String content;
-
     private Long likes;
-
     private Long views;
-
+    private String tag;
 
     @Builder
-    public Board(String title, String content, Long likes, Long views) {
+    public Board(String title, String content, Long likes, Long views, String tag) {
         this.title = title;
         this.content = content;
         this.likes = likes;
         this.views = views;
+        this.tag = tag;
     }
-
-    public void update(String title, String content) {
-        this.title = title;
-        this.content = content;
+    public void update(BoardUpdateRequestDto requestDto) {
+        this.title = requestDto.getTitle();
+        this.content = requestDto.getContent();
+        this.tag = requestDto.getTag();
     }
 
     public void updateLike(Boolean isLike) {
