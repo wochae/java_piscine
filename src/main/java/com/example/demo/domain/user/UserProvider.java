@@ -15,11 +15,9 @@ public class UserProvider {
 
 
     public int checkEmail(String email) throws BusinessException {
-        if (userRepository.findAll().stream().filter(e -> e.getEmail() == email).findAny().isEmpty()) {
-            return 1;
-        }
-        return 0;
-
+        if (userRepository.findFirstByEmail(email).isPresent())
+            return 0;
+        return 1;
     }
 
     public PostUserRes createUser(PostUserReq req) {
