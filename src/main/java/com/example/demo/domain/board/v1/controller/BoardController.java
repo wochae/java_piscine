@@ -1,14 +1,10 @@
 package com.example.demo.domain.board.v1.controller;
 
 import com.example.demo.domain.board.Board;
-import com.example.demo.domain.board.v1.dto.BoardAddReqDto;
-import com.example.demo.domain.board.v1.dto.BoardFindResDto;
 import com.example.demo.domain.board.v1.dto.BoardListDto;
-import com.example.demo.domain.board.v1.dto.addTagReqDto;
+import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
 
 public interface BoardController {
     public void saveBoard(@RequestBody Board board);
@@ -25,6 +21,6 @@ public interface BoardController {
 
     public void decreaseBoardLike(@RequestParam Integer id);
 
-    public addTagReqDto addTagInBoard(@RequestBody addTagReqDto reqDto);
+    public BoardAddTagReqDto addTagInBoard(@RequestBody BoardAddTagReqDto reqDto);
 
 }

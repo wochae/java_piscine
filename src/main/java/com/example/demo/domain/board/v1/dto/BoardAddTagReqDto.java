@@ -4,12 +4,12 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class addTagReqDto {
+public class BoardAddTagReqDto {
     private Integer boardId;
     private String tag;
 
     @Builder
-    public addTagReqDto(Integer boardId, String tag) {
+    public BoardAddTagReqDto(Integer boardId, String tag) {
         this.boardId = boardId;
         this.tag = tag;
     }

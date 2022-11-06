@@ -1,7 +1,6 @@
 package com.example.demo.domain.board;
 
-import com.example.demo.domain.board.v1.dto.BoardListDto;
-import com.example.demo.domain.board.v1.dto.addTagReqDto;
+import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -77,11 +76,11 @@ public class BoardService {
     }
 
     @Transactional
-    public addTagReqDto addTag(addTagReqDto reqDto) {
+    public BoardAddTagReqDto addTag(BoardAddTagReqDto reqDto) {
         Board findBoard = findById(reqDto.getBoardId());
         findBoard.setTag(reqDto.getTag());
 
-        addTagReqDto res = addTagReqDto.builder().
+        BoardAddTagReqDto res = BoardAddTagReqDto.builder().
                             boardId(findBoard.getId()).
                             tag(findBoard.getTag()).build();
         return res;
