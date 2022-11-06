@@ -27,9 +27,13 @@ public class BoardControllerImpl implements BoardController {
     @Override
     @PostMapping(value = "/post")
     public void saveBoard(BoardAddReqDto req) {
-        User user = userRepository.getById(req.getUserId());
-        Board board = new Board(req.getTitle(), req.getContent(), user, 0, 0);
-        boardService.addBoard(board);
+        try {
+            User user = userRepository.getById(req.getUserId());
+            Board board = new Board(req.getTitle(), req.getContent(), user, 0, 0);
+            boardService.addBoard(board);
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("계정을 찾을 수 없습니다.");
+        }
     }
 
 
