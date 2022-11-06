@@ -82,9 +82,11 @@ public class BoardControllerImpl implements BoardController {
 
         if (!pw.equals(req.getPassword()))
             throw new IllegalArgumentException("비밀번호가 맞지 않습니다.");
-        boardService.deleteBySelf(req, user);
-
-
+        try {
+            boardService.deleteBySelf(req, user);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("게시글을 삭제할 수 없는 유저입니다.");
+        }
     }
 
 

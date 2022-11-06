@@ -91,9 +91,9 @@ public class BoardService {
 
     public void deleteBySelf(BoardDeleteBySelfReq req, User user) {
 
-        List<Board> boardList = boardRepository.findBoardsById(user.getId());
+        List<Board> boardList = boardRepository.findBoardsByUserId(user.getId());
 
-        Board board = boardList.stream().filter(e -> e.getId()==req.getBoardId()).findAny().orElse(null);
+        Board board = boardList.stream().filter(e -> e.getId()==req.getBoardId()).findAny().orElseThrow();
 
         boardRepository.delete(board);
     }

@@ -44,7 +44,7 @@ public class UserService {
     }
 
     public User findUserByEmail(String email) {
-        return userRepository.findFirstByEmail(email).orElse(null);
+        return userRepository.findFirstByEmail(email).orElseThrow();
     }
 
     public FindUserRes findById(Integer userId) {
