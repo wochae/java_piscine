@@ -20,7 +20,7 @@ public class BoardService {
         Board b = Board.builder()
                         .title(board.getTitle())
                         .content(board.getContent())
-                        .user_id(board.getUser_id())
+                        .user(board.getUser())
                         .view(0)
                         .like(0)
                         .build();

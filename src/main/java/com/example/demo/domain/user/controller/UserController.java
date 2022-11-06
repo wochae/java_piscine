@@ -20,8 +20,6 @@ public interface UserController {
 //    public UpdateUserRes findUser(@RequestBody UpdateUserReq req);
 
     public List<FindUserRes> findUser(@RequestParam String userName);
-
-
     public FindUserListRes findUserList();
 
     UpdateUserRes UpdateUser(@RequestBody UpdateUserReq req);

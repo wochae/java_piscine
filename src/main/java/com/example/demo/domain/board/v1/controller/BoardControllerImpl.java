@@ -3,8 +3,13 @@ package com.example.demo.domain.board.v1.controller;
 
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardService;
+import com.example.demo.domain.board.v1.dto.BoardAddReqDto;
 import com.example.demo.domain.board.v1.dto.BoardListDto;
 import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
+import com.example.demo.domain.user.User;
+import com.example.demo.domain.user.UserRepository;
+import com.example.demo.domain.user.UserService;
+import com.example.demo.domain.user.dto.FindUserRes;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
@@ -16,11 +21,14 @@ import java.util.List;
 public class BoardControllerImpl implements BoardController {
 
     private final BoardService boardService;
+    private final UserRepository userRepository;
 
 
     @Override
     @PostMapping(value = "/post")
-    public void saveBoard(Board board) {
+    public void saveBoard(BoardAddReqDto req) {
+        User user = userRepository.getById(req.getUserId());
+        Board board = new Board(req.getTitle(), req.getContent(), user, 0, 0);
         boardService.addBoard(board);
     }
 

@@ -25,7 +25,7 @@ public class Board extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user_id;
+    private User user;
     @Setter
     @Column
     private Integer view;
@@ -39,14 +39,12 @@ public class Board extends BaseTimeEntity {
     private String tag;
 
     @Builder
-    public Board(Integer id, String title, String content, User user_id, Integer view, Integer like, String tag) {
-        this.id = id;
+    public Board(String title, String content, User user, Integer view, Integer like) {
         this.title = title;
         this.content = content;
-        this.user_id = user_id;
-        this.view = view;
-        this.like = like;
-        this.tag = tag;
+        this.user = user;
+        this.view = 0;
+        this.like = 0;
     }
 }
 
