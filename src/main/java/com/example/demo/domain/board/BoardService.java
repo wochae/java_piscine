@@ -1,6 +1,8 @@
 package com.example.demo.domain.board;
 
 import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
+import com.example.demo.domain.board.v1.dto.BoardDeleteBySelfReq;
+import com.example.demo.domain.user.User;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,5 +87,14 @@ public class BoardService {
                             tag(findBoard.getTag()).build();
         return res;
 
+    }
+
+    public void deleteBySelf(BoardDeleteBySelfReq req, User user) {
+
+        List<Board> boardList = boardRepository.findBoardsById(user.getId());
+
+        Board board = boardList.stream().filter(e -> e.getId()==req.getBoardId()).findAny().orElse(null);
+
+        boardRepository.delete(board);
     }
 }
