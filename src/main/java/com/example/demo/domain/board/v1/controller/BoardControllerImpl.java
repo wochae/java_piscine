@@ -4,6 +4,7 @@ package com.example.demo.domain.board.v1.controller;
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardService;
 import com.example.demo.domain.board.v1.dto.BoardAddReqDto;
+import com.example.demo.domain.board.v1.dto.BoardDeleteBySelfReq;
 import com.example.demo.domain.board.v1.dto.BoardListDto;
 import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
 import com.example.demo.domain.user.User;
@@ -21,6 +22,8 @@ import java.util.List;
 public class BoardControllerImpl implements BoardController {
 
     private final BoardService boardService;
+
+    private final UserService userService;
     private final UserRepository userRepository;
 
 
@@ -62,6 +65,20 @@ public class BoardControllerImpl implements BoardController {
         Board b = boardService.findById(id);
 
         return b;
+    }
+
+    @Override
+    @DeleteMapping(value = "/post/delete")
+    public void deleteBoardBySelf(BoardDeleteBySelfReq req) {
+        try {
+            User user = userService.findUserByEmail(req.getEmail());
+            String pw = user.getPassword();
+            if (!pw.equals(req.getPassword()))
+                throw new IllegalArgumentException("비밀번호가 맞지 않습니다.");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("사용자를 찾을 수 없습습니다.");
+        }
+            boardService.destroyBoard(req.getBoardId());
     }
 
 
