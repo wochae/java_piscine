@@ -47,6 +47,12 @@ public class UserService {
         return userRepository.findFirstByEmail(email).orElse(null);
     }
 
+    public FindUserRes findById(Integer userId) {
+       Optional<User> user = Optional.of(userRepository.getById(userId));
+        FindUserRes res = FindUserRes.builder().userName(user.get().getUserName()).email(user.get().getEmail()).build();
+       return res;
+    }
+
     public List<User> findUsers() {
         return userRepository.findAll();
     }

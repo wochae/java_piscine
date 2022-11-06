@@ -1,5 +1,6 @@
 package com.example.demo.domain.board;
 
+import com.example.demo.domain.board.v1.dto.BoardListDto;
 import com.example.demo.domain.board.v1.dto.addTagReqDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class BoardService {
         Board b = Board.builder()
                         .title(board.getTitle())
                         .content(board.getContent())
+                        .user_id(board.getUser_id())
                         .view(0)
                         .like(0)
                         .build();

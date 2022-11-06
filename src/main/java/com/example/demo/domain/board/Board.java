@@ -1,6 +1,7 @@
 package com.example.demo.domain.board;
 
 import com.example.demo.domain.BaseTimeEntity;
+import com.example.demo.domain.user.User;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,9 @@ public class Board extends BaseTimeEntity {
     @Column(name = "content")
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user_id;
     @Setter
     @Column
     private Integer view;
@@ -35,12 +39,14 @@ public class Board extends BaseTimeEntity {
     private String tag;
 
     @Builder
-    public Board(Integer id, String title, String content, Integer view, Integer like, String tag) {
+    public Board(Integer id, String title, String content, User user_id, Integer view, Integer like, String tag) {
         this.id = id;
         this.title = title;
         this.content = content;
+        this.user_id = user_id;
         this.view = view;
         this.like = like;
         this.tag = tag;
     }
 }
+

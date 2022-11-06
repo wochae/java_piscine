@@ -1,6 +1,7 @@
 package com.example.demo.domain.board.v1.controller;
 
 import com.example.demo.domain.board.Board;
+import com.example.demo.domain.board.v1.dto.BoardAddReqDto;
 import com.example.demo.domain.board.v1.dto.BoardFindResDto;
 import com.example.demo.domain.board.v1.dto.BoardListDto;
 import com.example.demo.domain.board.v1.dto.addTagReqDto;
@@ -14,6 +15,7 @@ public interface BoardController {
     public BoardListDto findAllBoardDesc();
 
     public Board findOneBoard(@RequestParam Integer id);
+
 
     public void modifyBoard(@RequestParam String title, @RequestParam String content, @RequestParam Integer id);
 

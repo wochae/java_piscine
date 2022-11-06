@@ -3,8 +3,13 @@ package com.example.demo.domain.board.v1.controller;
 
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardService;
+import com.example.demo.domain.board.v1.dto.BoardAddReqDto;
+import com.example.demo.domain.board.v1.dto.BoardFindResDto;
 import com.example.demo.domain.board.v1.dto.BoardListDto;
 import com.example.demo.domain.board.v1.dto.addTagReqDto;
+import com.example.demo.domain.user.User;
+import com.example.demo.domain.user.UserService;
+import com.example.demo.domain.user.dto.FindUserRes;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;

@@ -12,6 +12,5 @@ public class BoardFindResDto {
     private String title;
     private String content;
     private Integer view;
+    private String userName;
 }
-
-
