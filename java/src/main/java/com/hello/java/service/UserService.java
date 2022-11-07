@@ -1,5 +1,6 @@
 package com.hello.java.service;
 
+import com.hello.java.domain.user.User;
 import com.hello.java.domain.user.UserRepository;
 import com.hello.java.web.dto.UserSaveRequestDto;
 import lombok.RequiredArgsConstructor;
@@ -16,4 +17,5 @@ public class UserService {
     public Long save(UserSaveRequestDto requestDto) {
         return userRepository.save(requestDto.toEntity()).getId();
     }
+
 }

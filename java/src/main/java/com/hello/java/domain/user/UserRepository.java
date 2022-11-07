@@ -1,7 +1,14 @@
 package com.hello.java.domain.user;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository {
+
+    User save(User user);
+    Optional<User> findById(Long id);
+    Optional<User> findByName(String name);
+
+    List<User> findAll();
 
 }
