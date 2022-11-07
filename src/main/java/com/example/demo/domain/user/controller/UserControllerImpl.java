@@ -27,10 +27,10 @@ public class UserControllerImpl implements UserController{
     @PostMapping(value = "/create")
     public PostUserRes createUser(PostUserReq req) {
         if (req.getEmail() == null) {
-            throw new BusinessException("");
+            throw new BusinessException("이메일이 없잖아!!!");
         }
         if (!isRegexEmail(req.getEmail())) {
-            throw new BusinessException("");
+            throw new BusinessException("이메일의 형식이 잘못됐잖아!!!");
         }
         PostUserRes res;
         try {
