@@ -1,6 +1,7 @@
 package com.hello.java.domain.board;
 
-import com.hello.java.domain.board.dto.BoardUpdateRequestDto;
+import com.hello.java.domain.BaseTimeEntity;
+import com.hello.java.web.dto.BoardUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Board extends BaseTimeEntity{
+public class Board extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,10 +30,10 @@ public class Board extends BaseTimeEntity{
         this.views = views;
         this.tag = tag;
     }
-    public void update(BoardUpdateRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.content = requestDto.getContent();
-        this.tag = requestDto.getTag();
+    public void update(Board board) {
+        this.title = board.getTitle();
+        this.content = board.getContent();
+        this.tag = board.getTag();
     }
 
     public void updateLike(Boolean isLike) {

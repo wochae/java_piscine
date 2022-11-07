@@ -1,7 +1,9 @@
-package com.hello.java.domain.board;
+package com.hello.java.service;
 
-import com.hello.java.domain.board.dto.BoardSaveRequestDto;
-import com.hello.java.domain.board.dto.BoardUpdateRequestDto;
+import com.hello.java.domain.board.Board;
+import com.hello.java.domain.board.BoardRepository;
+import com.hello.java.web.dto.BoardSaveRequestDto;
+import com.hello.java.web.dto.BoardUpdateRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -66,12 +68,13 @@ class BoardServiceTest {
         String content = "cadet";
         String tag = "#pipex";
 
-        BoardUpdateRequestDto updateRequestDto = BoardUpdateRequestDto.builder()
+        Board updateBoard = BoardUpdateRequestDto.builder()
                 .title(title)
                 .content(content)
                 .tag(tag)
-                .build();
-        boardService.updateBoard(findBoards.get(0).getId(), updateRequestDto);
+                .build()
+                .toEntity();
+        boardService.update(findBoards.get(0).getId(), updateBoard);
 
         //then
         Board findBoard = findBoards.get(0);

@@ -1,36 +1,30 @@
-package com.hello.java.domain.board.dto;
-
+package com.hello.java.web.dto;
 
 import com.hello.java.domain.board.Board;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-public class BoardSaveRequestDto {
+@NoArgsConstructor
+public class BoardUpdateRequestDto {
+
     private String title;
     private String content;
-    private Long likes;
-
-    private Long views;
-
     private String tag;
 
     @Builder
-    public BoardSaveRequestDto(String title, String content, String tag) {
+    public BoardUpdateRequestDto(String title, String content, String tag) {
         this.title = title;
         this.content = content;
-        this.likes = 0L;
-        this.views = 0L;
         this.tag = tag;
     }
-
     public Board toEntity() {
         return Board.builder()
                 .title(title)
                 .content(content)
-                .likes(likes)
-                .views(views)
                 .tag(tag)
                 .build();
     }
+
 }

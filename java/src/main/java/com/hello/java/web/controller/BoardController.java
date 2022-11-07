@@ -1,11 +1,11 @@
-package com.hello.java.domain.board.controller;
+package com.hello.java.web.controller;
 
 
 import com.hello.java.domain.board.Board;
-import com.hello.java.domain.board.BoardService;
-import com.hello.java.domain.board.dto.BoardSaveRequestDto;
-import com.hello.java.domain.board.dto.BoardUpdateRequestDto;
-import com.hello.java.domain.board.dto.BoardListResponseDto;
+import com.hello.java.service.BoardService;
+import com.hello.java.web.dto.BoardSaveRequestDto;
+import com.hello.java.web.dto.BoardUpdateRequestDto;
+import com.hello.java.web.dto.BoardListResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class BoardController {
 
     @PostMapping("/board")
     public Board saveBoard(@RequestBody BoardSaveRequestDto requestDto) {
-        return boardService.save(requestDto);
+        return boardService.save(requestDto.toEntity());
     }
 
     @GetMapping("/board/{boardId}")
@@ -32,7 +32,7 @@ public class BoardController {
 
     @PutMapping("/board/{boardId}")
     public Long updateBoard(@PathVariable("boardId") Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
-        return boardService.updateBoard(boardId, boardUpdateRequestDto);
+        return boardService.update(boardId, boardUpdateRequestDto.toEntity());
     }
 
     @DeleteMapping("/board")
