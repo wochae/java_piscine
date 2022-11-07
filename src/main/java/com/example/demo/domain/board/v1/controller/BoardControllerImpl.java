@@ -60,7 +60,7 @@ public class BoardControllerImpl implements BoardController {
     }
 
     @Override
-    @GetMapping(value = "/post/userName")
+    @GetMapping(value = "/post/find/{userName}")
     public BoardListDto findBoardsByName(String userName) {
 
         List<Board> boards = boardService.findBoardsByUserName(userName);
@@ -95,7 +95,7 @@ public class BoardControllerImpl implements BoardController {
         try {
             boardService.deleteBySelf(req, user);
         } catch (Exception e) {
-            throw new IllegalArgumentException("게시글을 삭제할 수 없는 유저입니다.");
+            throw new IllegalArgumentException("게시글을 삭제할 수 없습니다.");
         }
     }
 

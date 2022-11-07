@@ -2,7 +2,10 @@ package com.example.demo.domain.board.v1.controller;
 
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.v1.dto.*;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface BoardController {
@@ -11,7 +14,7 @@ public interface BoardController {
 
     public Board findOneBoard(@RequestParam Integer id);
 
-    public BoardListDto findBoardsByName(String userName);
+    public BoardListDto findBoardsByName(@PathVariable String userName);
 
     public void deleteBoardBySelf(@RequestBody BoardDeleteBySelfReq req);
 

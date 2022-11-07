@@ -17,7 +17,7 @@ import static com.example.demo.utils.ValidationRegex.isRegexEmail;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/user")
-public class UserControllerImpl implements UserController{
+public class UserControllerImpl implements UserController {
 
     private final UserService userService;
     private final UserProvider userProvider;
@@ -27,7 +27,7 @@ public class UserControllerImpl implements UserController{
     @PostMapping(value = "/create")
     public PostUserRes createUser(PostUserReq req) {
         if (req.getEmail() == null) {
-            throw new BusinessException("이메일이 없잖아!!!");
+            throw new BusinessException("1234123", "이메일이 없잖아!!!");
         }
         if (!isRegexEmail(req.getEmail())) {
             throw new BusinessException("이메일의 형식이 잘못됐잖아!!!");
@@ -69,14 +69,14 @@ public class UserControllerImpl implements UserController{
         }
 
         User user = userService.findUserByEmail(req.getEmail());
-        UpdateUserReq request = new UpdateUserReq(user.getId(),user.getUserName(),user.getEmail());
+        UpdateUserReq request = new UpdateUserReq(user.getId(),req.getName(),user.getEmail());
         String userPw = user.getPassword();
         String reqPw = req.getPassword();
         if (!userPw.equals(reqPw)) {
             throw new IllegalArgumentException("비밀번호가 틀립니다.");
         }
         userService.updateUser(request);
-        UpdateUserRes res = UpdateUserRes.builder().name(user.getUserName()).email(user.getEmail()).build();
+        UpdateUserRes res = UpdateUserRes.builder().name(req.getName()).email(user.getEmail()).build();
         res.setEmail(req.getEmail());
 
 
