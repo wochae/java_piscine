@@ -68,12 +68,13 @@ class BoardServiceTest {
         String content = "cadet";
         String tag = "#pipex";
 
-        BoardUpdateRequestDto updateRequestDto = BoardUpdateRequestDto.builder()
+        Board updateBoard = BoardUpdateRequestDto.builder()
                 .title(title)
                 .content(content)
                 .tag(tag)
-                .build();
-        boardService.updateBoard(findBoards.get(0).getId(), updateRequestDto);
+                .build()
+                .toEntity();
+        boardService.update(findBoards.get(0).getId(), updateBoard);
 
         //then
         Board findBoard = findBoards.get(0);

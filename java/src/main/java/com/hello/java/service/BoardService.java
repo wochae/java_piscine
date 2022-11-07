@@ -3,7 +3,6 @@ package com.hello.java.service;
 import com.hello.java.domain.board.Board;
 import com.hello.java.domain.board.BoardRepository;
 import com.hello.java.web.dto.BoardListResponseDto;
-import com.hello.java.web.dto.BoardSaveRequestDto;
 import com.hello.java.web.dto.BoardUpdateRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,14 +18,14 @@ public class BoardService {
     private final BoardRepository boardRepository;
 
     @Transactional
-    public Board save(BoardSaveRequestDto requestDto) {
-        return boardRepository.save(requestDto.toEntity());
+    public Board save(Board board) {
+        return boardRepository.save(board);
     }
 
     @Transactional
-    public Long updateBoard(Long id, BoardUpdateRequestDto boardUpdateRequestDto) {
-        Board board = findOne(id).orElseThrow();
-        board.update(boardUpdateRequestDto);
+    public Long update(Long id, Board newBoard) {
+        Board oldBoard = findOne(id).orElseThrow();
+        oldBoard.update(newBoard);
         return id;
     }
 

@@ -30,10 +30,10 @@ public class Board extends BaseTimeEntity {
         this.views = views;
         this.tag = tag;
     }
-    public void update(BoardUpdateRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.content = requestDto.getContent();
-        this.tag = requestDto.getTag();
+    public void update(Board board) {
+        this.title = board.getTitle();
+        this.content = board.getContent();
+        this.tag = board.getTag();
     }
 
     public void updateLike(Boolean isLike) {

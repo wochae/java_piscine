@@ -16,7 +16,7 @@ public class BoardController {
 
     @PostMapping("/board")
     public Board saveBoard(@RequestBody BoardSaveRequestDto requestDto) {
-        return boardService.save(requestDto);
+        return boardService.save(requestDto.toEntity());
     }
 
     @GetMapping("/board/{boardId}")
@@ -32,7 +32,7 @@ public class BoardController {
 
     @PutMapping("/board/{boardId}")
     public Long updateBoard(@PathVariable("boardId") Long boardId, @RequestBody BoardUpdateRequestDto boardUpdateRequestDto) {
-        return boardService.updateBoard(boardId, boardUpdateRequestDto);
+        return boardService.update(boardId, boardUpdateRequestDto.toEntity());
     }
 
     @DeleteMapping("/board")

@@ -69,7 +69,6 @@ class UserServiceTest {
         String username = "salee2";
         String password = "42gg";
 
-
         User user1 = UserSaveRequestDto.builder()
                 .username(username)
                 .password(password)
