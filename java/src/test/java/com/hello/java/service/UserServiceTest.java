@@ -62,4 +62,27 @@ class UserServiceTest {
         assertThat(findUser.getUsername()).isEqualTo(username);
         assertThat(findUser.getPassword()).isEqualTo(password);
     }
+
+    @Test
+    public void 유저_이름_중복검사(){
+        //given
+        String username = "salee2";
+        String password = "42gg";
+
+
+        User user1 = UserSaveRequestDto.builder()
+                .username(username)
+                .password(password)
+                .build()
+                .toEntity();
+        User user2 = UserSaveRequestDto.builder()
+                .username(username)
+                .password(password)
+                .build()
+                .toEntity();
+        //when
+        userService.join(user1);
+        //then
+        assertThatThrownBy(() -> userService.join(user2)).isInstanceOf(IllegalStateException.class);
+    }
 }
