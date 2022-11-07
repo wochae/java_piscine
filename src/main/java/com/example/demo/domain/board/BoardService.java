@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -40,6 +41,11 @@ public class BoardService {
     @Transactional
     public List<Board> findBoards() {
         return boardRepository.findAllDesc();
+    }
+
+    @Transactional
+    public List<Board> findBoardsByUserName(String name) {
+        return boardRepository.findBoardsByUserName(name);
     }
 
     public int countBoards() {
@@ -93,7 +99,7 @@ public class BoardService {
 
         List<Board> boardList = boardRepository.findBoardsByUserId(user.getId());
 
-        Board board = boardList.stream().filter(e -> e.getId()==req.getBoardId()).findAny().orElseThrow();
+        Board board = boardList.stream().filter(e -> Objects.equals(e.getId(), req.getBoardId())).findAny().orElseThrow();
 
         boardRepository.delete(board);
     }

@@ -13,4 +13,7 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     @Query("SELECT b FROM Board b WHERE b.user.id = ?1")
     List<Board> findBoardsByUserId(@RequestParam Integer userId);
+
+    @Query("SELECT b FROM Board b Where b.user.userName = ?1")
+    List<Board> findBoardsByUserName(@RequestParam String userName);
 }

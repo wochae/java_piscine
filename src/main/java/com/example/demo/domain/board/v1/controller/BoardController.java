@@ -11,6 +11,8 @@ public interface BoardController {
 
     public Board findOneBoard(@RequestParam Integer id);
 
+    public BoardListDto findBoardsByName(String userName);
+
     public void deleteBoardBySelf(@RequestBody BoardDeleteBySelfReq req);
 
     public void modifyBoard(@RequestParam String title, @RequestParam String content, @RequestParam Integer id);

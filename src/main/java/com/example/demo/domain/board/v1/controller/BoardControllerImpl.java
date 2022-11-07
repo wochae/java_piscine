@@ -59,6 +59,16 @@ public class BoardControllerImpl implements BoardController {
         return listDto;
     }
 
+    @Override
+    @GetMapping(value = "/post/userName")
+    public BoardListDto findBoardsByName(String userName) {
+
+        List<Board> boards = boardService.findBoardsByUserName(userName);
+        List<Board> boardList = new ArrayList<>(boards);
+
+        return BoardListDto.builder().BoardList(boardList).countBoard(boards.size()).build();
+    }
+
 
     @Override
     @GetMapping(value = "/post/")
