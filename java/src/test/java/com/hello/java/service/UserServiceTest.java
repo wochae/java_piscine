@@ -56,7 +56,7 @@ class UserServiceTest {
                 .toEntity();
         //when
         userService.join(user);
-        User findUser = userRepository.findByName(username).orElseThrow();
+        User findUser = userRepository.findByUsername(username).orElseThrow();
 
         //then
         assertThat(findUser.getUsername()).isEqualTo(username);

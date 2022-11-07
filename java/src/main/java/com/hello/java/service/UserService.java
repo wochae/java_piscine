@@ -25,7 +25,7 @@ public class UserService {
     }
 
     private void verifyDuplicateUser(User user) {
-        userRepository.findByName(user.getUsername())
+        userRepository.findByUsername(user.getUsername())
                 .ifPresent(u -> {
                     throw new IllegalStateException("이미 존재하는 회원입니다.");
                 });
