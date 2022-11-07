@@ -28,14 +28,35 @@ class UserServiceTest {
         String username = "salee2";
         String password = "42gg";
 
-        UserSaveRequestDto requestDto = UserSaveRequestDto.builder()
+        User user = UserSaveRequestDto.builder()
                 .username(username)
                 .password(password)
-                .build();
+                .build()
+                .toEntity();
 
         //when
-        Long userId = userService.save(requestDto);
+        Long userId = userService.join(user);
         User findUser = userRepository.findById(userId).orElseThrow();
+
+        //then
+        assertThat(findUser.getUsername()).isEqualTo(username);
+        assertThat(findUser.getPassword()).isEqualTo(password);
+    }
+
+    @Test
+    public void 유저가_이름으로_검색된다() {
+        //given
+        String username = "salee2";
+        String password = "42gg";
+
+        User user = UserSaveRequestDto.builder()
+                .username(username)
+                .password(password)
+                .build()
+                .toEntity();
+        //when
+        userService.join(user);
+        User findUser = userRepository.findByName(username).orElseThrow();
 
         //then
         assertThat(findUser.getUsername()).isEqualTo(username);

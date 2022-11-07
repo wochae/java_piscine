@@ -15,6 +15,6 @@ public class UserController {
 
     @PostMapping("/user")
     public Long save(@RequestParam UserSaveRequestDto requestDto) {
-        return userService.save(requestDto);
+        return userService.join(requestDto.toEntity());
     }
 }
