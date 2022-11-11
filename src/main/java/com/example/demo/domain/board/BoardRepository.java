@@ -1,5 +1,7 @@
 package com.example.demo.domain.board;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,9 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     @Query("SELECT b FROM Board b WHERE b.user.id = ?1")
     List<Board> findBoardsByUserId(@RequestParam Integer userId);
 
-    @Query("SELECT b FROM Board b Where b.user.userName = ?1")
+    @Query("SELECT b FROM Board b WHERE b.user.userName = ?1")
     List<Board> findBoardsByUserName(@RequestParam String userName);
+
+
+    Page<Board> findBoardsByUser_UserName(@RequestParam String userName, Pageable pageable);
 }

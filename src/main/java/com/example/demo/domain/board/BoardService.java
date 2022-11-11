@@ -4,6 +4,8 @@ import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
 import com.example.demo.domain.board.v1.dto.BoardDeleteBySelfReq;
 import com.example.demo.domain.user.User;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,6 +48,12 @@ public class BoardService {
     @Transactional
     public List<Board> findBoardsByUserName(String name) {
         return boardRepository.findBoardsByUserName(name);
+    }
+
+    @Transactional
+    public Page<Board> pageList(String name, Pageable pageable) {
+        return boardRepository.findBoardsByUser_UserName(name, pageable);
+
     }
 
     public int countBoards() {
