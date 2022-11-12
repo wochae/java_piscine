@@ -19,14 +19,16 @@ public class Rike extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "board_id")
-    private Board boardId;
+    private Board board;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
-    public Rike(Board boardId, User userId) {
-        this.boardId = boardId;
-        this.userId = userId;
+
+    public Rike(Board board, User user) {
+        this.board = board;
+        this.user = user;
     }
 }
+

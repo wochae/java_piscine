@@ -138,16 +138,15 @@ public class BoardControllerImpl implements BoardController {
         if (req.getBoardId() == null || req.getUserId() == null) {
             throw new IllegalArgumentException("error");
         }
-//        if (rikeService.isExistsRike(req) != null)// 존재하면 안되기 때문에 존재한다면 에러 처리
-//            throw new IllegalArgumentException("좋아요를 할 수 없습니다.");
-
-
         Board b = boardRepository.getById(req.getBoardId());
         User u = userRepository.getById(req.getUserId());
 
-        Rike rike = new Rike(b, u);
-        rikeService.rikeUp(rike);
-
+        if (b.getId().equals(req.getBoardId()) && u.getId().equals(req.getUserId())) {
+            Rike rike = new Rike(b, u);
+            rikeService.rikeUp(rike);
+        } else {
+            throw new IllegalArgumentException("해당 유저는 좋아요를 할 수 없습니다.");
+        }
     }
 
     @Override
@@ -156,14 +155,19 @@ public class BoardControllerImpl implements BoardController {
         if (req.getBoardId() == null || req.getUserId() == null) {
             throw new IllegalArgumentException("error");
         }
-        if (rikeService.isExistsRike(req) == null) { // 존재하면 안되기 때문에 존재한다면 에러 처리
-            throw new IllegalArgumentException("좋아요를 취소할 수 없습니다.");
-        }
-        Board b = boardRepository.getById(req.getBoardId());
-        User u = userRepository.getById(req.getUserId());
 
-        Rike rike = new Rike(b, u);
-        rikeService.rikeDown(rike);
+        if (rikeService.checkExists(req) != 1)
+            throw new IllegalArgumentException("좋아요을 취소할 수 없습니다.");
+//        if (rikeService.isExistsRike(req)) {
+//            throw new IllegalArgumentException("좋아요를 취소할 수 없습니다.");
+//        }
+        Board b = boardRepository.findById(req.getBoardId()).orElse(null);
+        User u = userRepository.findById(req.getUserId()).orElse(null);
+        if (b.getUser().getId() == u.getId()) {
+            rikeService.rikeDown(req);
+        } else {
+            throw new IllegalArgumentException("삭제할 수 없는 대상입니다.");
+        }
     }
 
     @Override

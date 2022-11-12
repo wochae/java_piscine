@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @Service
@@ -17,20 +17,31 @@ public class RikeService {
 
     @Transactional
     public void rikeUp(Rike rike) {
-        Rike r = new Rike(rike.getBoardId(), rike.getUserId());
+        Rike r = new Rike(rike.getBoard(), rike.getUser());
         rikeRepository.save(r);
 
     }
     @Transactional
-    public void rikeDown(Rike rike) {
-        Rike r = new Rike(rike.getBoardId(), rike.getUserId());
+    public void rikeDown(RikeReq req) {
+        Rike r = rikeRepository.findRikeByUserIdAndBoardId(req.getUserId(), req.getBoardId()).orElseThrow();
         rikeRepository.delete(r);
 
     }
 
     @Transactional
-    public Rike isExistsRike(RikeReq req) {
-        Optional<Rike> rike = rikeRepository.findRikeByBoardIdAndUserId(req.getBoardId(), req.getUserId());
-        return rike.orElse(null);
+    public int checkExists(RikeReq req) {
+        if (rikeRepository.findRikeByUserIdAndBoardId(req.getUserId(), req.getBoardId()).isPresent())
+            return 1;
+        return 0;
     }
+
+//    public boolean findRike(RikeReq req) {
+//        return rikeRepository.findRikeByBoardIdAndUserId(req.getBoardId(), req.getUserId()).orElse(null);
+//    }
+
+    @Transactional
+    public List<Rike> findAllRike() {
+        return rikeRepository.findAll();
+    }
+
 }
