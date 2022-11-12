@@ -4,15 +4,11 @@ package com.example.demo.domain.board.v1.controller;
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardRepository;
 import com.example.demo.domain.board.BoardService;
-import com.example.demo.domain.board.v1.dto.BoardAddReqDto;
-import com.example.demo.domain.board.v1.dto.BoardDeleteBySelfReq;
-import com.example.demo.domain.board.v1.dto.BoardListDto;
-import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
+import com.example.demo.domain.board.v1.dto.*;
 import com.example.demo.domain.rike.Rike;
 import com.example.demo.domain.rike.RikeRepository;
 import com.example.demo.domain.rike.RikeService;
 import com.example.demo.domain.rike.dto.RikeReq;
-import com.example.demo.domain.rike.dto.RikeRes;
 import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserRepository;
 import com.example.demo.domain.user.UserService;
@@ -22,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -148,6 +145,7 @@ public class BoardControllerImpl implements BoardController {
         if (b.getId().equals(req.getBoardId()) && u.getId().equals(req.getUserId())) {
             Rike rike = new Rike(b, u);
             rikeService.rikeUp(rike);
+            boardService.increaseLike(req.getBoardId());
         } else {
             throw new IllegalArgumentException("해당 유저는 좋아요를 할 수 없습니다.");
         }
@@ -167,6 +165,8 @@ public class BoardControllerImpl implements BoardController {
         User u = userRepository.findById(req.getUserId()).orElse(null);
         if (b.getUser().getId().equals(u.getId())) {
             rikeService.rikeDown(req);
+            boardService.decreaseLike(req.getBoardId());
+
         } else {
             throw new IllegalArgumentException("삭제할 수 없는 대상입니다.");
         }
@@ -178,4 +178,19 @@ public class BoardControllerImpl implements BoardController {
         BoardAddTagReqDto res = boardService.addTag(reqDto);
         return res;
     }
+
+    @Override
+    @GetMapping(value = "/post/rike/boards")
+    public BoardListRikedByUserRes boardRikeByUser(Integer userId) {
+        List<Rike> list = rikeRepository.findRikeByUserId(userId);
+        List<Board> boardList = new ArrayList<>();
+        for (Rike r : list) {
+            Board b = boardRepository.findById(r.getBoard().getId()).orElse(null);
+            boardList.add(b);
+        }
+        BoardListRikedByUserRes res = BoardListRikedByUserRes.builder().boardList(boardList).count(boardList.size()).build();
+        return res;
+    }
+
+
 }

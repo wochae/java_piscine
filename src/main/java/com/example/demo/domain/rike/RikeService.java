@@ -20,6 +20,7 @@ public class RikeService {
         Rike r = new Rike(rike.getBoard(), rike.getUser());
         rikeRepository.save(r);
 
+
     }
     @Transactional
     public void rikeDown(RikeReq req) {

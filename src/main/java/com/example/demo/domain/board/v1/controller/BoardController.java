@@ -34,4 +34,5 @@ public interface BoardController {
 
     public BoardAddTagReqDto addTagInBoard(@RequestBody BoardAddTagReqDto reqDto);
 
+    public BoardListRikedByUserRes boardRikeByUser(@RequestParam Integer userId);
 }
