@@ -138,8 +138,12 @@ public class BoardControllerImpl implements BoardController {
         if (req.getBoardId() == null || req.getUserId() == null) {
             throw new IllegalArgumentException("error");
         }
-        Board b = boardRepository.getById(req.getBoardId());
-        User u = userRepository.getById(req.getUserId());
+
+        if (rikeService.checkExists(req) == 1)
+            throw new IllegalArgumentException("좋아요을 할 수 없습니다.");
+
+        Board b = boardRepository.findById(req.getBoardId()).orElse(null);
+        User u = userRepository.findById(req.getUserId()).orElse(null);
 
         if (b.getId().equals(req.getBoardId()) && u.getId().equals(req.getUserId())) {
             Rike rike = new Rike(b, u);
@@ -158,12 +162,10 @@ public class BoardControllerImpl implements BoardController {
 
         if (rikeService.checkExists(req) != 1)
             throw new IllegalArgumentException("좋아요을 취소할 수 없습니다.");
-//        if (rikeService.isExistsRike(req)) {
-//            throw new IllegalArgumentException("좋아요를 취소할 수 없습니다.");
-//        }
+
         Board b = boardRepository.findById(req.getBoardId()).orElse(null);
         User u = userRepository.findById(req.getUserId()).orElse(null);
-        if (b.getUser().getId() == u.getId()) {
+        if (b.getUser().getId().equals(u.getId())) {
             rikeService.rikeDown(req);
         } else {
             throw new IllegalArgumentException("삭제할 수 없는 대상입니다.");
