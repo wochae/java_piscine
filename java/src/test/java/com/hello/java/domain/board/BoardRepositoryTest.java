@@ -1,6 +1,6 @@
 package com.hello.java.domain.board;
 
-import com.hello.java.domain.board.dto.BoardSaveRequestDto;
+import com.hello.java.web.dto.BoardSaveRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
