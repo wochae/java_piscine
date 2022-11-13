@@ -4,18 +4,21 @@ package com.example.demo.domain.board.v1.controller;
 import com.example.demo.domain.board.Board;
 import com.example.demo.domain.board.BoardRepository;
 import com.example.demo.domain.board.BoardService;
-import com.example.demo.domain.board.v1.dto.BoardAddReqDto;
-import com.example.demo.domain.board.v1.dto.BoardDeleteBySelfReq;
-import com.example.demo.domain.board.v1.dto.BoardListDto;
-import com.example.demo.domain.board.v1.dto.BoardAddTagReqDto;
+import com.example.demo.domain.board.v1.dto.*;
+import com.example.demo.domain.rike.Rike;
+import com.example.demo.domain.rike.RikeRepository;
+import com.example.demo.domain.rike.RikeService;
+import com.example.demo.domain.rike.dto.RikeReq;
 import com.example.demo.domain.user.User;
 import com.example.demo.domain.user.UserRepository;
 import com.example.demo.domain.user.UserService;
-import com.example.demo.domain.user.dto.FindUserRes;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -27,6 +30,10 @@ public class BoardControllerImpl implements BoardController {
     private final BoardRepository boardRepository;
     private final UserService userService;
     private final UserRepository userRepository;
+
+    private final RikeService rikeService;
+
+    private final RikeRepository rikeRepository;
 
 
     @Override
@@ -60,13 +67,20 @@ public class BoardControllerImpl implements BoardController {
     }
 
     @Override
-    @GetMapping(value = "/post/userName")
+    @GetMapping(value = "/post/find/{userName}")
     public BoardListDto findBoardsByName(String userName) {
 
         List<Board> boards = boardService.findBoardsByUserName(userName);
         List<Board> boardList = new ArrayList<>(boards);
 
         return BoardListDto.builder().BoardList(boardList).countBoard(boards.size()).build();
+    }
+
+    @Override
+    @GetMapping(value = "/post/find/p/{userName}")
+    public Page<Board> findBoardPageByUserName(String userName, Pageable pageable) {
+        Page<Board> pages = boardService.pageList(userName, pageable);
+        return pages;
     }
 
 
@@ -95,7 +109,7 @@ public class BoardControllerImpl implements BoardController {
         try {
             boardService.deleteBySelf(req, user);
         } catch (Exception e) {
-            throw new IllegalArgumentException("게시글을 삭제할 수 없는 유저입니다.");
+            throw new IllegalArgumentException("게시글을 삭제할 수 없습니다.");
         }
     }
 
@@ -116,15 +130,46 @@ public class BoardControllerImpl implements BoardController {
 
 
     @Override
-    @PutMapping(value = "/post/rike/u")
-    public void increaseBoardLike(Integer id) {
-        boardService.increaseLike(id);
+    @PostMapping(value = "/post/rike/u")
+    public void increaseBoardLike(RikeReq req) {
+        if (req.getBoardId() == null || req.getUserId() == null) {
+            throw new IllegalArgumentException("error");
+        }
+
+        if (rikeService.checkExists(req) == 1)
+            throw new IllegalArgumentException("좋아요을 할 수 없습니다.");
+
+        Board b = boardRepository.findById(req.getBoardId()).orElse(null);
+        User u = userRepository.findById(req.getUserId()).orElse(null);
+
+        if (b.getId().equals(req.getBoardId()) && u.getId().equals(req.getUserId())) {
+            Rike rike = new Rike(b, u);
+            rikeService.rikeUp(rike);
+            boardService.increaseLike(req.getBoardId());
+        } else {
+            throw new IllegalArgumentException("해당 유저는 좋아요를 할 수 없습니다.");
+        }
     }
 
     @Override
-    @PutMapping(value = "/post/rike/d")
-    public void decreaseBoardLike(Integer id) {
-        boardService.decreaseLike(id);
+    @DeleteMapping(value = "/post/rike/d")
+    public void decreaseBoardLike(RikeReq req) {
+        if (req.getBoardId() == null || req.getUserId() == null) {
+            throw new IllegalArgumentException("error");
+        }
+
+        if (rikeService.checkExists(req) != 1)
+            throw new IllegalArgumentException("좋아요을 취소할 수 없습니다.");
+
+        Board b = boardRepository.findById(req.getBoardId()).orElse(null);
+        User u = userRepository.findById(req.getUserId()).orElse(null);
+        if (b.getUser().getId().equals(u.getId())) {
+            rikeService.rikeDown(req);
+            boardService.decreaseLike(req.getBoardId());
+
+        } else {
+            throw new IllegalArgumentException("삭제할 수 없는 대상입니다.");
+        }
     }
 
     @Override
@@ -133,4 +178,19 @@ public class BoardControllerImpl implements BoardController {
         BoardAddTagReqDto res = boardService.addTag(reqDto);
         return res;
     }
+
+    @Override
+    @GetMapping(value = "/post/rike/boards")
+    public BoardListRikedByUserRes boardRikeByUser(Integer userId) {
+        List<Rike> list = rikeRepository.findRikeByUserId(userId);
+        List<Board> boardList = new ArrayList<>();
+        for (Rike r : list) {
+            Board b = boardRepository.findById(r.getBoard().getId()).orElse(null);
+            boardList.add(b);
+        }
+        BoardListRikedByUserRes res = BoardListRikedByUserRes.builder().boardList(boardList).count(boardList.size()).build();
+        return res;
+    }
+
+
 }
